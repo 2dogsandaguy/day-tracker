@@ -77,28 +77,8 @@
         timeBlock.classList.remove("future");
         timeBlock.classList.add("past");
       }
-    });
-  
-    // Grabs values from time and value divs and saves them to local storage
-    var saveBtns = document.querySelectorAll(".saveBtn");
-    saveBtns.forEach(function (saveBtn) {
-      saveBtn.addEventListener("click", function (event) {
-        event.preventDefault();
-        var value = this.previousElementSibling.value;
-        var time = this.parentElement.getAttribute("id").split("-")[1];
-        localStorage.setItem(time, value);
-      });
-    });
-  
-    // Retrieves items from local storage and sets them in proper places
-    var timeBlocks = document.querySelectorAll(".time-block");
-    timeBlocks.forEach(function (timeBlock) {
-      var timeId = timeBlock.parentElement.getAttribute("id").split("-")[1];
-      var storedValue = localStorage.getItem(timeId);
-      if (storedValue) {
-        timeBlock.value = storedValue;
-      }
     });*/
+
  
 // Define a function 'logColors'
 var logColors = function () {
