@@ -100,33 +100,91 @@
       }
     });*/
  
-    var logColors = function () {
-        var nowHour = dayjs().hour();
-        var plannerHours = $('[id^="hour-"]');
-        plannerHours.each(function () {
-          const id = $(this).attr("id");
-          const endingNumber = id.split("-")[1];
+// Define a function 'logColors'
+var logColors = function () {
+    // Get the current hour using 'dayjs' library
+    var nowHour = dayjs().hour();
+    
+    // Get all elements with IDs starting with 'hour-' and store them in 'plannerHours'
+    var plannerHours = $('[id^="hour-"]');
+    
+    // Iterate over each element in 'plannerHours'
+    plannerHours.each(function () {
+      // Get the ID attribute of the current element
+      const id = $(this).attr("id");
       
-          if (parseInt(endingNumber) > nowHour) {
-            $(this).addClass("future");
-          }else if (parseInt(endingNumber) === nowHour) {
-            $(this).addClass("present");
-          } else if (parseInt(endingNumber) < nowHour) {
-            $(this).addClass("past");
-          } 
-        });
-      };
-      
-      logColors();
-      
-      
-      
-      function updateLiveTime() {
-        var currentTime = dayjs().format("h:mm:ss A  MMM /D /YYYY");
-        document.getElementById("currentDay").innerHTML = currentTime;
+      // Extract the number at the end of the ID by splitting at the '-' character
+      const endingNumber = id.split("-")[1];
+  
+      // Compare the extracted number with 'nowHour' and apply classes based on the comparison
+      if (parseInt(endingNumber) > nowHour) {
+        $(this).addClass("future");   // Add the 'future' class to the current element
+      } else if (parseInt(endingNumber) === nowHour) {
+        $(this).addClass("present");  // Add the 'present' class to the current element
+      } else if (parseInt(endingNumber) < nowHour) {
+        $(this).addClass("past");     // Add the 'past' class to the current element
       }
-      
-      updateLiveTime();
-      
-      setInterval(updateLiveTime, 1000);
-      
+    });
+  };
+  
+  
+  logColors();
+  
+  
+  console.log(logColors())
+
+var tasks = [];
+
+$(".saveBtn").on("click", function () {
+  
+  var textSlots = $(this).parent().attr("id");
+
+
+  var fillerTask = $(this).siblings(".description").val().trim();
+
+
+  var existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+ 
+  existingTasks.push({ id: textSlots, task: fillerTask });
+
+  localStorage.setItem("tasks", JSON.stringify(existingTasks));
+});
+
+
+$(function () {
+ 
+  var existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  $(".time-block").each(function () {
+    
+    var timerText = $(this).attr("id");
+
+    
+    var task = existingTasks.find(function (item) {
+      return item.id === timerText;
+    });
+
+
+    if (task) {
+      $(this).children(".description").val(task.task);
+    }
+  });
+});
+
+  
+  // Define a function 'updateLiveTime'
+  function updateLiveTime() {
+    // Get the current time in the specified format and store it in 'currentTime'
+    var currentTime = dayjs().format("h:mm:ss A  MMM /D /YYYY");
+    
+    // Update the content of the element with ID 'currentDay' to 'currentTime'
+    document.getElementById("currentDay").innerHTML = currentTime;
+  }
+  
+  // Call the 'updateLiveTime' function to set the initial time
+  updateLiveTime();
+  
+  // Call the 'updateLiveTime' function every 1000ms (1 second) using setInterval to update the live time
+  setInterval(updateLiveTime, 1000);
+  
