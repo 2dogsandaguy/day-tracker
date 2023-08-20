@@ -28,6 +28,13 @@ var logColors = function () {
   // Call the 'logColors' function line 2
   logColors();
   
+    
+  // Call the 'updateLiveTime' function to set the initial time
+  updateLiveTime();
+  
+  // Call the 'updateLiveTime' function every 1000ms (1 second) 
+  setInterval(updateLiveTime, 1000);
+  
   
   // Define a function to save tasks to localStorage
 function saveTasksToLocalStorage() {
@@ -97,68 +104,10 @@ function saveTasksToLocalStorage() {
     // Update the content of the element with ID 'currentDay' to 'currentTime'
     document.getElementById("currentDay").innerHTML = currentTime;
   }
-  
-  // Call the 'updateLiveTime' function to set the initial time
-  updateLiveTime();
-  
-  // Call the 'updateLiveTime' function every 1000ms (1 second) 
-  setInterval(updateLiveTime, 1000);
-  
 
-
-
-
-    //this works but does not store localstorage in array was messy in localstorage
-  
-/*// Add a click event listener to all elements with the class 'saveBtn'
-  $(".saveBtn").on("click", function () {
-    // Get the ID of the parent element of the clicked button and store it in 'textSlots'
-    var textSlots = $(this).parent().attr("id");
-    
-    // Get the value of the input field with class 'description' that is a sibling of the clicked button
-    // Remove leading and trailing white spaces from the value and store it in 'fillerTask'
-    var fillerTask = $(this).siblings(".description").val().trim();
-    
-    // put in 'fillerTask' in the local storage with the key of 'textSlots'
-    localStorage.setItem(textSlots, fillerTask);
+  $("#clearBtn").on("click", function () {
+    // Clear the local storage
+    localStorage.clear();
+    // Refresh the page to reflect the cleared storage
+    location.reload();
   });
-  
-  // Execute a function when the DOM is fully loaded
-  $(function () {
-    //  repeat over each element with class 'time-block'
-    $(".time-block").each(function () {
-      // Get the ID of the current element and store it in 'timerText'
-      var timerText = $(this).attr("id");
-      
-      // Set the value of the child element with class 'description' to the value retrieved from the local storage using 'timerText' as the key
-      $(this).children(".description").val(localStorage.getItem(timerText));
-    });
-  }); */
-
-
-/*function that i want to add array for the localstorage does not save 11am 
-  /*var tasks = [];
-
-  $(".saveBtn").on("click", function () {
-    var textSlots = $(this).parent().attr("id");
-    var fillerTask = $(this).siblings(".description").val().trim();
-    var existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    existingTasks.push({ id: textSlots, task: fillerTask });
-    localStorage.setItem("tasks", JSON.stringify(existingTasks));
-  });
-  
-  $(function () {
-   
-    var existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    $(".time-block").each(function () {
-      var timerText = $(this).attr("id");
-      var task = existingTasks.find(function (item) {
-        return item.id === timerText;
-      });
-  
-      if (task) {
-        $(this).children(".description").val(task.task);
-      }
-    });
-  });
-  */
