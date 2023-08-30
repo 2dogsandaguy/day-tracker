@@ -46,7 +46,7 @@ Web Dev Simplified
 
 
 
-link to site:
+link to site: https://2dogsandaguy.github.io/day-tracker/
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
